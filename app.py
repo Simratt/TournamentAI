@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
+# from dotenv import load_dotenv
 import os
+
+# load_dotenv()
 
 app = Flask(__name__)
 
@@ -22,9 +25,13 @@ def generate_haiku():
         ]
     )
     
+    haiku = completion.choices[0].message.content
+    print("Generated Haiku:", haiku)
+    
     return jsonify({
-        "haiku": completion.choices[0].message.content
+        "haiku": haiku
     })
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # app.run(host='0.0.0.0', port=10000, debug=True)
